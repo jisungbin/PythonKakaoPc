@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "567146437774",
+    "project_id": "pythonkakaopcwrapper",
+    "storage_bucket": "pythonkakaopcwrapper.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567146437774:android:4d2aef0d0e3c0876383ddf",
+        "android_client_info": {
+          "package_name": "me.sungbin.pythonkakaopcwrapper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567146437774-71r0vuhibivqhe0a1s2sqjmafil63mcv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJCjo-Gwpy_yFBu18x3Ng1tt0_ElLyi30"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "567146437774-71r0vuhibivqhe0a1s2sqjmafil63mcv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
