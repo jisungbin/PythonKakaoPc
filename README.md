@@ -9,3 +9,7 @@
 # 원리
 `Firebase RTDB`를 통해 안드로이드 기기(메인)와 통신 <br/>
 안드로이드에서 카카오톡으로 메시지 전송 및 조회는 [`KakaoTalkBotBaseModule`](https://github.com/jisungbin/KakaoTalkBotBaseModule) 사용
+
+# 사용 IDE
+1. `Android Studio`
+2. `PyCharm`
