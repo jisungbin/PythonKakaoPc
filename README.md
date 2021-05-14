@@ -14,5 +14,5 @@
 1. `Android Studio`
 2. `PyCharm`
 
-# 작동 링크
+# 작동 영상
 [https://sungbin.me/48](https://sungbin.me/48)
