@@ -14,6 +14,7 @@ import me.sungbin.pythonkakaopcwrapper.R
 import me.sungbin.pythonkakaopcwrapper.databinding.ActivityMainBinding
 import me.sungbin.pythonkakaopcwrapper.util.Util
 import me.sungbin.pythonkakaopcwrapper.util.toast
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,12 +50,25 @@ class MainActivity : AppCompatActivity() {
 
             override fun onCancelled(error: DatabaseError) {}
         })
+
+        db.getReference(uuid).child("send").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.value.toString().contains("=")) {
+                    println(snapshot.value.toString().split("=")[1])
+                    val jsonString = snapshot.value.toString().split("=")[1]
+                    val json = JSONObject(jsonString)
+                    bot.replyRoom(json.get("room").toString(), json.get("message").toString())
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 
     private fun kakaoSetup() {
         bot.setMessageReceiveListener { sender, message, room, _, _, _, _, _ ->
             db.getReference(uuid).child("receive").child(room)
-                .push().setValue("{ \"sender\": \"$sender\", \"message\": \"$message\" }")
+                .push().setValue("{\"sender\": \"$sender\", \"message\": \"$message\"}")
         }
     }
 
