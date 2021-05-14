@@ -13,3 +13,6 @@
 # 사용 IDE
 1. `Android Studio`
 2. `PyCharm`
+
+# 작동 링크
+[https://sungbin.me/48](https://sungbin.me/48)
