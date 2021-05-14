@@ -11,12 +11,10 @@ config = {
 }
 
 firebase = pyrebase.initialize_app(config)
-receiveIndex = 0
 
 
 class ChatRoomGui(QWidget):
     def __init__(self, _room, _messages, _device_number):
-        self.db = firebase.database().child(_device_number).child('receive').stream(self.stream_handler)
         self.device_number = _device_number
         self.room = _room
         self.messages = _messages
@@ -27,32 +25,22 @@ class ChatRoomGui(QWidget):
         self.button = QPushButton('메시지 전송', self)
         self.init()
 
+        self.db = firebase.database().child(_device_number).child('receive').stream(self.stream_handler)
+
     def stream_handler(self, message):
-        global receiveIndex
         data_string = message['data']
-        if receiveIndex == 0:
-            receiveIndex = 1
-            return
-        else:
+        if str(data_string).count(',') == 1:
             data_json = json.loads(data_string, strict=False)
-            json_string = "{" + f'"sender": "{data_json.get("sender")}", "message": "{data_json.get("message")}", ' \
-                                f'"room": "{self.room}"' + "}"
-            json_value = json.loads(json_string, strict=False)
-            if len(message) != 0:
-                self.messages.append(json_value)
-                model = QStandardItemModel()
-                for message in self.messages:
-                    model.appendRow(QStandardItem(f'[{message.get("sender")}] - {message.get("message")}'))
-                self.listview.setModel(model)
+            self.messages.append(data_json)
+            model = QStandardItemModel()
+            for message in self.messages:
+                model.appendRow(QStandardItem(f'[{message.get("sender")}] - {message.get("message")}'))
+            self.listview.setModel(model)
 
     def init(self):
         self.setFixedSize(500, 500)
         self.setWindowTitle(f'{self.room} 채팅방')
 
-        model = QStandardItemModel()
-        for message in self.messages:
-            model.appendRow(QStandardItem(f'[{message.get("sender")}] - {message.get("message")}'))
-        self.listview.setModel(model)
         self.listview.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.listview.resize(500, 400)
 
