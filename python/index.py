@@ -17,7 +17,7 @@ def open_chat_room(room):
     global messages
     notification.notify(
         title='알림',
-        message='현재 창을 닫으면 카톡방이 열립니다.',
+        message='새로운 창이 열리지 않으면 현재 창을 닫아주세요.',
         timeout=5,
     )
     app = QApplication(sys.argv)
