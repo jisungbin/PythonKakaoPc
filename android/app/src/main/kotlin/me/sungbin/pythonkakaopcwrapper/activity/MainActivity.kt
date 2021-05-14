@@ -40,8 +40,10 @@ class MainActivity : AppCompatActivity() {
     private fun dbSetup() {
         db.getReference(uuid).child("status").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                binding.tvStatus.post {
-                    binding.tvStatus.text = getString(R.string.main_label_python_status_done)
+                if (snapshot.value.toString().contains("connected")) {
+                    binding.tvStatus.post {
+                        binding.tvStatus.text = getString(R.string.main_label_python_status_done)
+                    }
                 }
             }
 

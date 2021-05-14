@@ -4,7 +4,9 @@ from PyQt5.QtWidgets import QApplication
 from ChatRoomGui import ChatRoomGui
 import pyrebase
 
+
 rooms = []
+messages = {}
 
 
 def stream_handler(message):
@@ -14,13 +16,14 @@ def stream_handler(message):
         return
     if room not in rooms:
         rooms.append(room)
-    print(rooms)
-    # string_value = str(message["data"])
-    # json_value = json.loads(string_value)
-    # message = json_value.get("message")
-    # sender = json_value.get("sender")
-    # print(message)
-    # print(sender)
+    json_value = json.loads(data)
+    if room not in messages:
+        messages[room] = [json_value]
+    else:
+        new_messages = messages[room]
+        new_messages.append(json_value)
+        messages[room] = new_messages
+    print(messages[room])
 
 
 config = {
