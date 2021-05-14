@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">PythonKakaoPcWrapper</string>
 
-    <string name="main_copyright">© 2021 지성빈. all rights reserved.</string>
-    <string name="main_device_number">기기 번호</string>
-    <string name="main_install_wear">(필수) 안드로이드 웨어 설치</string>
-    <string name="main_python_status_none">파이썬 - 연결 안됨</string>
-    <string name="main_python_status_done">파이썬 - 연결됨</string>
+    <string name="main_label_copyright">© 2021 지성빈. all rights reserved.</string>
+    <string name="main_label_device_number">기기 번호</string>
+    <string name="main_label_python_status_none">파이썬 - 연결 안됨</string>
+    <string name="main_label_python_status_done">파이썬 - 연결됨</string>
+    <string name="main_button_install_wear">(필수) 안드로이드 웨어 설치</string>
+    <string name="main_button_notification_read_permission">(필수) 알림 읽기 권한</string>
+    <string name="main_toast_done_refresh">새로고침 완료</string>
 </resources>
