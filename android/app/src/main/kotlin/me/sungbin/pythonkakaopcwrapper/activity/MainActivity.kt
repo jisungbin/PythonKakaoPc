@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import me.sungbin.kakaotalkbotbasemodule.library.KakaoBot
@@ -14,6 +17,7 @@ import me.sungbin.pythonkakaopcwrapper.util.toast
 
 class MainActivity : AppCompatActivity() {
 
+    private val uuid = Util.generateDeviceUuid().toString()
     private lateinit var binding: ActivityMainBinding
     private val db = Firebase.database
     private val bot by lazy { KakaoBot().init(applicationContext) }
@@ -23,18 +27,32 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         kakaoSetup()
+        dbSetup()
         checkRequirement()
 
         binding.btnRefreshRequirement.setOnClickListener {
             checkRequirement()
             toast(getString(R.string.main_toast_done_refresh))
         }
-        binding.tvDeviceNumber.text = Util.generateDeviceUuid().toString()
+        binding.tvDeviceNumber.text = uuid
+    }
+
+    private fun dbSetup() {
+        db.getReference(uuid).child("status").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                binding.tvStatus.post {
+                    binding.tvStatus.text = getString(R.string.main_label_python_status_done)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 
     private fun kakaoSetup() {
-        bot.setMessageReceiveListener { sender, message, room, isGroupChat, action, profileImage, packageName, bot ->
-            db.getReference("receive").child(room).push().setValue("{\nmessage: $message,\nroom: $room\n}")
+        bot.setMessageReceiveListener { sender, message, room, _, _, _, _, _ ->
+            db.getReference(uuid).child("receive").child(room)
+                .push().setValue("{ \"sender\": \"$sender\", \"message\": \"$message\" }")
         }
     }
 
