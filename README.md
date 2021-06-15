@@ -15,4 +15,5 @@
 2. `PyCharm`
 
 # 작동 영상
-[https://sungbin.me/48](https://sungbin.me/48)
+[https://sungbin.me/48](https://sungbin.me/48)<br/>
+링크가 깨졌다면 [https://sungbin.tistory.com/48](https://sungbin.tistory.com/48)
